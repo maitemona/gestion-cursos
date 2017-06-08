@@ -25,7 +25,9 @@
 		<property name="password" value="${mysql.pass}" />
 	</bean>	
 	
-
+	<bean id="cursoDaoImp" class="com.ipartek.formacion.dbms.dao.CursoDAOImp">
+		<property name="dataSource" ref="mysqlDataSource"/>
+	</bean>
 
 
 </beans>
