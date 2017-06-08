@@ -71,8 +71,8 @@ public class CursoController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
-		 LOGGER.info("stoy controller de list all cursos");
-		 mav = new ModelAndView("cursos");
+		 //LOGGER.info("stoy controller de list all cursos");
+		 mav = new ModelAndView("/cursos/cursos");
 		List<Curso> cursos = cS.getAll();
 		 LOGGER.info("tamaño:" + cursos.size());
 		 mav.addObject("listadoCursos", cursos);
