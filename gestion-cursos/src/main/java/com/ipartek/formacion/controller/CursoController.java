@@ -43,7 +43,7 @@ import com.ipartek.formacion.dbms.persistence.Curso;
 import com.ipartek.formacion.service.interfaces.CursoService;
 
 
-@Controller
+@Controller()
 @RequestMapping("/cursos")
 public class CursoController {
 
@@ -68,12 +68,15 @@ public class CursoController {
 
 
 
+
 	@RequestMapping(method = RequestMethod.GET)
-	public String getAll(Model model) {
+	public ModelAndView getAll() {
+		 LOGGER.info("stoy controller de list all cursos");
+		 mav = new ModelAndView("cursos");
 		List<Curso> cursos = cS.getAll();
 		 LOGGER.info("tamaño:" + cursos.size());
-		model.addAttribute("listadoCursos", cursos);
-		return "cursos";
+		 mav.addObject("listadoCursos", cursos);
+		return mav;
 	}
 
 	@RequestMapping(value = "/{codigo}")

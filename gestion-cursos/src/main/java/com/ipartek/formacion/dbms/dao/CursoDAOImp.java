@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.intefaces.CursoDAO;
 import com.ipartek.formacion.dbms.mappers.CursoMapper;
 import com.ipartek.formacion.dbms.persistence.Curso;
 
+@Repository("cursoDaoImp")
 public class CursoDAOImp  implements CursoDAO{
 
 	@Autowired
@@ -48,7 +50,7 @@ public class CursoDAOImp  implements CursoDAO{
 
 	@Override
 	public List<Curso> getAll() {
-		LOGGER.info("dddddd");
+		//LOGGER.info("getAll() dddddd");
 		final String SQL = "CALL cursogetAll();";
 		List<Curso> cursos = null;
 		try {

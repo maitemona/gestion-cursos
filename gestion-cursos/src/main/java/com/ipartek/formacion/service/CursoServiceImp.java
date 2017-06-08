@@ -2,17 +2,23 @@ package com.ipartek.formacion.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.ipartek.formacion.dbms.dao.intefaces.CursoDAO;
+
 import com.ipartek.formacion.dbms.persistence.Curso;
 import com.ipartek.formacion.service.interfaces.CursoService;
 
-@Service("cursoServiceImp")
+@Service
 public class CursoServiceImp implements CursoService {
-
-	private CursoDAO cursoDao;
+	private static final Logger LOGGER = LoggerFactory.getLogger(CursoServiceImp.class);
+	@Autowired
+	private CursoDAO cursoDao = null;
 
 	@Override
 	public Curso getById(long codigo) {
@@ -21,7 +27,11 @@ public class CursoServiceImp implements CursoService {
 
 	@Override
 	public List<Curso> getAll() {
-		return cursoDao.getAll();
+		LOGGER.info("stoy service de list all cursos");
+		
+		List<Curso> cursos = cursoDao.getAll();
+		LOGGER.info("numero de cursos:" + cursos);
+		return cursos;
 	}
 
 	@Transactional

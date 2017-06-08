@@ -1,12 +1,12 @@
 package com.ipartek.formacion.dbms.persistence;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Curso {
+public class Curso implements Comparable<Curso>, Serializable {
+	
 	
 	public final static int CODIGO_NULO = -1;
 	private long id;
-
 	private String nombre;
 	private String codigo;
 	public Curso() {
@@ -32,11 +32,13 @@ public class Curso {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 	@Override
@@ -48,16 +50,18 @@ public class Curso {
 		if (getClass() != obj.getClass())
 			return false;
 		Curso other = (Curso) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
+		if (id != other.id)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "Curso [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + "]";
+	}
+	@Override
+	public int compareTo(Curso o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
