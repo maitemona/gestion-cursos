@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.ipartek.formacion</groupId>
   <artifactId>gestion-cursos</artifactId>
@@ -17,18 +18,15 @@
 		<junit.version>4.12</junit.version>
 		<log4j.version>1.2.15</log4j.version>
 		<servlet-api.version>2.5</servlet-api.version>
-		<war.name>gestiondocente</war.name>
+		<war.name>gestioncursos</war.name>
 		<mysql.version>5.1.40</mysql.version>
 		<javax.validation.version>1.0.0.GA</javax.validation.version>
 		<hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<project.version>1.0.0-SNAPSHOT</project.version>
-  		<artifact.jar>gestion-docente-common</artifact.jar>
-  		<artifact.ejb>gestion-docente-ejb</artifact.ejb>
 		<jackson.library>2.7.5</jackson.library>
 		<springfox-swagger>2.4.0</springfox-swagger>
 		<org.springsecurity-version>4.2.2.RELEASE</org.springsecurity-version>
-		<apachetiles.version>3.0.5</apachetiles.version>
 	</properties>
 	<dependencies>
 	
