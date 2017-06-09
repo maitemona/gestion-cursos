@@ -1,6 +1,7 @@
 package com.ipartek.formacion.dbms.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -10,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.ipartek.formacion.dbms.dao.intefaces.CursoDAO;
+
 import com.ipartek.formacion.dbms.mappers.CursoMapper;
 import com.ipartek.formacion.dbms.persistence.Curso;
 
@@ -23,6 +27,7 @@ public class CursoDAOImp  implements CursoDAO{
 	@Autowired
 	@Qualifier("mysqlDataSource")
 	private DataSource dataSource;
+	//private JdbcTemplate template;
 	private JdbcTemplate jdbctemplate;
 	private SimpleJdbcCall jdbcCall;
 	private final static Logger LOGGER = LoggerFactory.getLogger(CursoDAOImp.class);
@@ -38,14 +43,39 @@ public class CursoDAOImp  implements CursoDAO{
 
 	@Override
 	public Curso create(Curso curso) {
-		// TODO Auto-generated method stub
-		return null;
+		final String SQL = "cursoCreate";
+		// se llama al construcctor dado que cachea el SqlParameterSource
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		jdbcCall.withProcedureName(SQL);
+		// crear un mapa con los parametros de procedimiento almacenado de
+		// entrada (IN).
+		SqlParameterSource in = new MapSqlParameterSource().addValue("pnombre", curso.getNombre())
+				.addValue("pcodigo", curso.getCodigo());
+
+		LOGGER.info(curso.toString());
+		// se ejecuta la consulta
+		Map<String, Object> out = jdbcCall.execute(in);
+		// en out se han recogido los parametros out de la consulta a BBDD.
+		curso.setId((Integer) out.get("pid"));
+
+		return curso;
 	}
 
 	@Override
 	public Curso getById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Curso curso = null;
+		final String SQL = "CALL cursogetbyID(?);";
+		LOGGER.info("select sql"+ SQL);
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		try {
+			curso = jdbctemplate.queryForObject(SQL, new CursoMapper(), new Object[] { id });
+			LOGGER.info(curso.toString());
+		} catch (EmptyResultDataAccessException e) {
+			curso = null;
+			LOGGER.info("No se ha encontrado Alumno para codigo: " + id + " " + e.getMessage());
+		}
+		
+		return curso;
 	}
 
 	@Override
@@ -66,13 +96,32 @@ public class CursoDAOImp  implements CursoDAO{
 
 	@Override
 	public Curso update(Curso curso) {
-		// TODO Auto-generated method stub
-		return null;
+		final String SQL = "cursoUpdate";
+		// se llama al construcctor dado que cachea el SqlParameterSource
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		jdbcCall.withProcedureName(SQL);
+		// crear un mapa con los parametros de procedimiento almacenado de
+		// entrada (IN).
+		SqlParameterSource in = new MapSqlParameterSource().addValue("pnombre", curso.getNombre())
+				.addValue("pcodigo", curso.getCodigo())
+				.addValue("pid", curso.getId());
+
+		LOGGER.info(curso.toString());
+		// se ejecuta
+		jdbcCall.execute(in);
+		return curso;
 	}
 
 	@Override
 	public void delete(long id) {
-		// TODO Auto-generated method stub
+		final String SQL= "cursoDelete";
+		this.jdbcCall = new SimpleJdbcCall(dataSource);
+		jdbcCall.withProcedureName(SQL);
+		SqlParameterSource in =new MapSqlParameterSource()
+				.addValue("pcodigo", id);
+		
+		LOGGER.info(String.valueOf(id));
+		jdbcCall.execute(in);
 		
 	}
 

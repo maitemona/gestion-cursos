@@ -46,28 +46,17 @@ import com.ipartek.formacion.service.interfaces.CursoService;
 @Controller()
 @RequestMapping("/cursos")
 public class CursoController {
-
 	@Autowired
 	private CursoService cS;
-	
 	private ModelAndView mav = null;
-	
-
 	@Autowired
 	private ServletContext servletContext;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CursoController.class);
-
 	@InitBinder("curso")
 	public void initBinder(WebDataBinder binder, Locale locale) {
 		// DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT,
-		// locale);
-
-		
-		
+		// locale);	
 	}
-
-
-
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAll() {
@@ -79,35 +68,50 @@ public class CursoController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/{codigo}")
-	public String getById(@PathVariable("codigo") long codigo, Model model)  {
-		Curso curso = cS.getById(codigo);
+	@RequestMapping(value = "/{id}")
+	public String getById(@PathVariable("id") long id, Model model)  {
+		LOGGER.info("stoy controller de getbyid curso");
+		Curso curso = cS.getById(id);
 		if (curso == null) {
 			curso = new Curso();
 		}
+		 LOGGER.info("tamaño:" + curso.getId());
 		model.addAttribute("curso", curso);
-		return "cursodetalle";
+		return "cursos/curso";
 	}
 
+	//Crear nuevo curso
+		@RequestMapping(value = "/addCurso")
+		public ModelAndView addCurso() {
+			mav = new ModelAndView("/cursos/cursoform");
+			Curso curso = new Curso();
+			//curso.setActivo(true);
+			mav.addObject("curso", curso);
+			
+			return mav;
+		}
 
-	@RequestMapping(value = "/editCurso/{codigocurso}", method = RequestMethod.GET)
-	public ModelAndView editCurso(@PathVariable("codigocurso") long codigocurso) {
-		mav = new ModelAndView("cursoform");
-		Curso curso = cS.getById(codigocurso);
-		 LOGGER.info(codigocurso + " " + curso.toString());
+
+	//Editar un curso
+	@RequestMapping(value = "/editCurso/{id}", method = RequestMethod.GET)
+	public ModelAndView editCurso(@PathVariable("id") long id) {
+		mav = new ModelAndView("/cursos/cursoform");
+		Curso curso = cS.getById(id);
+		 LOGGER.info(id + " " + curso.toString());
 		mav.addObject("curso", curso);
 		
 		return mav;
 	}
 
-	@RequestMapping(value = "/deleteCurso/{codigocurso}")
-	public String deleteCurso(@PathVariable("codigocurso") long codigocurso, Model model) {
+	@RequestMapping(value = "/deleteCurso/{id}")
+	public String deleteCurso(@PathVariable("id") long id, Model model) {
+		cS.delete(id);
 		return "redirect:/cursos";
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveCurso(@Validated @RequestParam("fichero") MultipartFile file,
-			@ModelAttribute("curso") @Valid Curso curso, BindingResult bindingResult, ModelMap model,
+	public String saveCurso (
+			@ModelAttribute("curso") Curso curso, BindingResult bindingResult, ModelMap model,
 			RedirectAttributes redirectMap) throws IOException {
 
 		/*
@@ -126,10 +130,10 @@ public class CursoController {
 		//	txt = "Los datos de formulario contienen errores";
 
 		//	model.addAttribute("mensaje", mensaje);
-			destino = "cursoform";
+			destino = "/cursos/cursoform";
 		} else {
 			destino = "redirect:/cursos";
-			if (curso.getId() > Curso.CODIGO_NULO) {
+			if (curso.getId() > 0) {
 				LOGGER.info(curso.toString());
 				try {
 					cS.update(curso);
@@ -160,16 +164,5 @@ public class CursoController {
 	}
 
 	
-
-	@RequestMapping(value = "/addCurso")
-	public ModelAndView addCurso() {
-		mav = new ModelAndView("cursoform");
-		Curso curso = new Curso();
-		//curso.setActivo(true);
-		mav.addObject("curso", curso);
-		
-		return mav;
-	}
-
 
 }

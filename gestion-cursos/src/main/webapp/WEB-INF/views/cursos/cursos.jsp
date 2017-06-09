@@ -20,15 +20,15 @@
 					<c:forEach var="curso" items="${listadoCursos}">
 						<div class="row">
 							<div class="col-xs-5">
-								<a href="<c:url value='/cursos/${curso.codigo}'/>">${curso.nombre}</a>
+								<a href="<c:url value='/cursos/${curso.id}'/>">${curso.nombre}</a>
 							</div>
 							<div class="col-xs-2">
 								${curso.codigo}
 				            </div>
 							
 				            <div class="col-xs-3">
-				            	<a class="btn btn-warning" href="<c:url value="/cursos/editCurso/${curso.codigo}"/>">Editar Curso</a>
-				            	<a class="btn btn-danger" href="<c:url value="/cursos/deleteCurso/${curso.codigo}"/>">Borrar Curso</a>
+				            	<a class="btn btn-warning" href="<c:url value="/cursos/editCurso/${curso.id}"/>">Editar Curso</a>
+				            	<a class="btn btn-danger" href="<c:url value="/cursos/deleteCurso/${curso.id}"/>">Borrar Curso</a>
 				            </div>			
 						</div>
 					</c:forEach>

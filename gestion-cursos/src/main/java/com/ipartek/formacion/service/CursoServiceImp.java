@@ -21,8 +21,9 @@ public class CursoServiceImp implements CursoService {
 	private CursoDAO cursoDao = null;
 
 	@Override
-	public Curso getById(long codigo) {
-		return cursoDao.getById(codigo);
+	public Curso getById(long id) {
+		return cursoDao.getById(id);
+		//LOGGER.info( + codigo);
 	}
 
 	@Override
@@ -43,11 +44,11 @@ public class CursoServiceImp implements CursoService {
 
 	@Transactional
 	@Override
-	public void delete(long codigo) {
+	public void delete(long id) {
 
 		//Curso curso = cursoDao.getById(codigo);
 		
-		cursoDao.delete(codigo);
+		cursoDao.delete(id);
 	}
 
 	@Transactional
