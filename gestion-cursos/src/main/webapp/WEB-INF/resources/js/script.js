@@ -1,13 +1,24 @@
-$.noConflict();
+function buscar() {
+	
+	    var x = document.forms["myForm"]["busca"].value;
+	    if (x == "") {
+	        alert("Name must be filled out");
+	        return false;
+	    }
+	 
+}
+ 
+
+
+
+
+/*$.noConflict();
 jQuery( document ).ready(function( $ ) {
+	alert("HOL");
 	$('#ocultar').hide();
-	$("#mailingform select[name=categoria]").on("change",function(e){
-		//console.log($('select[name=categoria]').val());
-		
-		$("#email").empty();
-		$("#nombre").empty();
-		$('#ocultar').show();
-		url='http://localhost:8080/agenda/api/contactos/'+$('select[name=categoria]').val();
+	
+	
+		//url='http://localhost:8080/gestioncursos/api/cursos/'+$('select[name=categoria]').val();
 
 		 $.ajax({
 			  url : url,
@@ -20,7 +31,7 @@ jQuery( document ).ready(function( $ ) {
 			        var txtnombre = "<p>"+data[i].ncontacto+"</p>";
 			        $("#nombre").append(txtnombre);
 			        var txtemail = "<p>"+data[i].email+"</p>";
-			        $("#email").append(txtemail); 	 
+			        $("#codigo").append(txtemail); 	 
 				  });
 				 },
 
@@ -28,13 +39,14 @@ jQuery( document ).ready(function( $ ) {
 					  console.log("parsedJson: " + JSON.stringify(parsedjson));
 				  }
 		 });
-	});
+	});*/
 	
 	/* $('#fichero').on('change', function(e) {
    	  var fileName = e.target.files[0].name;
    	  $("#archivo").val(fileName);
      });
-    */
+    
      
 })
 
+*/

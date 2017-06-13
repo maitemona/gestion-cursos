@@ -108,6 +108,8 @@ public class CursoController {
 		cS.delete(id);
 		return "redirect:/cursos";
 	}
+	
+	
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveCurso (

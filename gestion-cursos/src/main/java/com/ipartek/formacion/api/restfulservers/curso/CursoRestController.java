@@ -37,19 +37,8 @@ public class CursoRestController implements Serializable{
 		
 	}
 
-	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<Curso>> getAll() {
-		List<Curso> cursos = cS.getAll();
-		ResponseEntity<List<Curso>> response = null;
-
-		if (cursos == null || cursos.isEmpty()) {
-			response = new ResponseEntity<List<Curso>>(HttpStatus.NO_CONTENT);
-		} else {
-			response = new ResponseEntity<List<Curso>>(cursos, HttpStatus.OK);
-		}
-
-		return response;
-	}
+	
+	/*
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Curso> getById(@PathVariable("id") int id) {
 		Curso curso = cS.getById(id);
@@ -63,6 +52,39 @@ public class CursoRestController implements Serializable{
 
 		return response;
 	}
+	*/
+	
+	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<List<Curso>> getAll() {
+		List<Curso> cursos = cS.getAll();
+		ResponseEntity<List<Curso>> response = null;
+
+		if (cursos == null || cursos.isEmpty()) {
+			response = new ResponseEntity<List<Curso>>(HttpStatus.NO_CONTENT);
+		} else {
+			response = new ResponseEntity<List<Curso>>(cursos, HttpStatus.OK);
+		}
+
+		return response;
+	}
+	
+	
+	@RequestMapping(value = "/{nombre}",method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<List<Curso>> getAllbyNombre(@PathVariable("nombre") String nombre) {
+		List<Curso> cursos = cS.getAllbyNombre(nombre);
+		ResponseEntity<List<Curso>> response = null;
+
+		if (cursos == null || cursos.isEmpty()) {
+			response = new ResponseEntity<List<Curso>>(HttpStatus.NO_CONTENT);
+		} else {
+			response = new ResponseEntity<List<Curso>>(cursos, HttpStatus.OK);
+		}
+
+		return response;
+	}
+	
+	
+	
 	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Integer> create(@RequestBody Curso curso, UriComponentsBuilder ucBuilder) {

@@ -127,8 +127,19 @@ public class CursoDAOImp  implements CursoDAO{
 
 	@Override
 	public List<Curso> getAllbyNombre(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		final String SQL = "CALL cursogetbyNombre(?);";
+		List<Curso> cursos = null;
+		try {
+			cursos = jdbctemplate.query(SQL, new CursoMapper(), new Object[] { nombre });
+			//cursos = jdbctemplate.query(SQL, new CursoMapper());
+			LOGGER.info(String.valueOf(cursos.size()));
+		} catch (EmptyResultDataAccessException e) {
+			cursos = null;
+			LOGGER.info("sin datos:" + e.getMessage() + " " + SQL);
+		}
+
+		return cursos;
+		
 	}
 
 }

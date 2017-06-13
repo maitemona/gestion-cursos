@@ -60,8 +60,11 @@ public class CursoServiceImp implements CursoService {
 
 	@Override
 	public List<Curso> getAllbyNombre(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+			LOGGER.info("stoy service de list all cursos por nombre");
+		
+		List<Curso> cursos = cursoDao.getAllbyNombre(nombre);
+		LOGGER.info("numero de cursos:" + cursos);
+		return cursos;
 	}
 
 }

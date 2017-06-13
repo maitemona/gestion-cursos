@@ -3,9 +3,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>  
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <jsp:include page="../includes/header.jsp" />   
+<c:url var="sendUrl" value="/cursos/search"/>
+	<section>
+		<h2>Buscar curso por nombre</h2>
+	
+	 <form name="myForm" action="#" onsubmit="buscar();" >
+		 <input type="text" name="busca" id="busca">
+		<input type="submit" value="BUSCAR">
+	</form> 
+	
+		
+			<div id="ocultar">
+					
+					
+			   			<div id="nombre" class="col-xs-2  text-capitalize"></div>
+			
+	           
+			            <div id="codigo" class="col-xs-4  text-capitalize"> </div>
+			  
+			        <div class="col-xs-6"></div>
+    		</div>		
+			
+		
+	</section>
 	<section class="row">
-		<header class="col-xs-12"><h2>Listado Cursos</h2></header>
+		<header class="col-xs-12"><h2>Listado de los 10 últimos cursos</h2></header>
 		<div class="col-xs-12">
 		<a class="btn btn-primary" href="<c:url value="/cursos/addCurso"/>">Crear Curso</a> 
 		</div>
