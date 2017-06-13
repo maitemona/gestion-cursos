@@ -83,7 +83,7 @@ public class CursoController {
 	//Crear nuevo curso
 		@RequestMapping(value = "/addCurso")
 		public ModelAndView addCurso() {
-			mav = new ModelAndView("/cursos/cursoform");
+			mav = new ModelAndView("/cursos/curso");
 			Curso curso = new Curso();
 			//curso.setActivo(true);
 			mav.addObject("curso", curso);
@@ -95,7 +95,7 @@ public class CursoController {
 	//Editar un curso
 	@RequestMapping(value = "/editCurso/{id}", method = RequestMethod.GET)
 	public ModelAndView editCurso(@PathVariable("id") long id) {
-		mav = new ModelAndView("/cursos/cursoform");
+		mav = new ModelAndView("/cursos/curso");
 		Curso curso = cS.getById(id);
 		 LOGGER.info(id + " " + curso.toString());
 		mav.addObject("curso", curso);
@@ -130,7 +130,7 @@ public class CursoController {
 		//	txt = "Los datos de formulario contienen errores";
 
 		//	model.addAttribute("mensaje", mensaje);
-			destino = "/cursos/cursoform";
+			destino = "/cursos/curso";
 		} else {
 			destino = "redirect:/cursos";
 			if (curso.getId() > 0) {
