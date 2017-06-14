@@ -7,25 +7,25 @@
         http://www.springframework.org/schema/security 
         http://www.springframework.org/schema/security/spring-security.xsd">
   
-      <http auto-config="true">
-    	 <intercept-url pattern="/" access="permitAll" />
-        <intercept-url pattern="/login" access="permitAll" />
-        
-       
-        <intercept-url pattern="/*" access="hasRole('ROLE_ADMIN')" />
-        <form-login  login-page="/login"
-                     username-parameter="userId"
-                     password-parameter="password"
-                     authentication-failure-url="/Access_Denied"
-                      />
-        <form-login login-page="/login"  default-target-url="/login" always-use-default-target="true" />
-        <logout logout-url="/logout"  invalidate-session="true" logout-success-url="/" />
+      
+    
+
+   <http auto-config="true">
+    	<intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/cursos*" access="hasRole('ROLE_ADMIN')"/>
+        		<form-login  login-page="/login.html"
+                    username-parameter="userId"
+                    password-parameter="password"
+                    authentication-failure-url="/Access_Denied"
+                    />
+       <!--  <form-login login-page="/login"  default-target-url="/login" always-use-default-target="true" />
+        <logout logout-url="/logout"  invalidate-session="true" logout-success-url="/" />-->
         <csrf disabled="true" />
     </http>
-    <authentication-manager>
+    <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <user-service>
-                <user name="admin" password="admin" authorities="ROLE_ADMIN" />
+                <user authorities="ROLE_ADMIN" name="admin" password="2017#admin" /> <!-- 2017#admin -->
             </user-service>
         </authentication-provider>
     </authentication-manager>

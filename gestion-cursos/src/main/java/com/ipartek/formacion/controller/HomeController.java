@@ -67,14 +67,7 @@ public class HomeController {
 			@RequestMapping(value="login")
 			public String loginPage(Locale locale, Model model){
 				LOGGER.info("ESTOY EN Login");
-				//Mensaje mensaje=null;
-				//String txt="";
-				//txt ="Te has logeado correctamente";
-				//mensaje =new Mensaje(MensajeType.MSG_TYPE_SUCCESS);
-				//me redirige a login.jsp
-				//mensaje.setMsg(txt);
-			//	model.addAttribute("mensaje", mensaje);
-				//redirectMap.addFlashAttribute("mensaje",mensaje);
+			
 				return "login";
 			}
 		/*
@@ -85,11 +78,11 @@ public class HomeController {
 				return "redirect:/login";
 			}*/
 			//estamos con trabajando con clases especificas de segurity
-		@RequestMapping(value="Access_Denied")
+		@RequestMapping(value="/Access_Denied")
 			public String accessoDenegado(ModelMap model){
 				//necesito el mapa para mostrar el mensaje de error en la pagina de login,
 				//vamos a crear un metodo getPrincipal, para validar desde xml
-				model.addAttribute("user", getPrincipal());
+				model.addAttribute("model", getPrincipal());
 				return "login";
 			}
 			private String getPrincipal() {

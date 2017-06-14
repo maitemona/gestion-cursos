@@ -1,45 +1,39 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false" %>
-<html>
-<head>
-	<title>Login</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<spring:message var="seccion" code="home.titulo" />
-<c:set scope="request" var="seccion" value="${seccion}"/>
-<jsp:include page="includes/header.jsp" />
-<main>
-	<section>
-		<c:url  var ="loginURL" value="/login.html" />
-		<form:form action="${loginURL}" method="post">
-			<div class="input-group input-sm">
-				<label>
-					Usuario:
-				</label>
-				<input type="text" id="userID" name="userID" required>
-			</div>
-			<div class="input-group input-sm">
-				<label>
-					Password:
-				</label>
-				<input type="password" id="password" name="password" required>
-			</div>
-			<input type="submit" value="Log IN" class="btn btn-block bg-primary" />
-		</form:form>
-	</section>
-</main>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<%@include file="includes/footer.html" %>
+
+
+<section class="row">
+	 <div class="col-xs-10 col-xs-offset-1">
+		<header><h2>Login</h2></header>
+		<c:if test="${param.error != null}">
+			<div class="alert alert-danger">
+				<p>Nombre de usuario o contraseña incorrectos.</p>
+			</div>
+		</c:if>
+		<c:if test="${param.logout != null}">
+			<div class="alert alert-success">
+				<p>Se ha deslogueado correctamente.</p>
+			</div>
+		</c:if>
+		<c:url var="loginURL" value="/login"/>
+		<div class="container">
+			<form:form id="loginform" class="form-horizontal" role="form" action="${loginURL}" method="post">
+				<div class="input-group">
+	            	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	                <input class="form-control" value="${SPRING_SECURITY_LAST_USERNAME}" type="text" id="userId" name="userId" required />                                        
+	          	</div>
+				<div class="input-group">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+					<input class="form-control" type="password" id="password" name="password" required/>
+				</div>
+				<input type="hidden" name="${_csrf.parameterName}" 	value="${_csrf.token}" />
+				
+				<button  class="btn btn-block btn-primary">Log In</button>
+			</form:form>
+		</div>
+		</div>
+</section>

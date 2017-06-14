@@ -35,25 +35,11 @@
 		<div class="navbar-header">
 			<ul>
 			<li>
-			<sec:authorize access="isAnonymous()">
-				    <form method="POST"  role="form" class="navbar-form navbar-right" action="<c:url value='/login'/>">
-				         <div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
-					        <input name="userId" type="text" class="form-control" value="${SPRING_SECURITY_LAST_USERNAME}" />
-					     </div> 
-						<div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-							<input name="password" class="form-control" type="password" />
-						</div> 
-		
-				        <input type="hidden" name="${_csrf.parameterName}" 	value="${_csrf.token}" />
-						<div class="form-group ">				
-					   		 <button type="submit" class="btn btn-primary">Login</button>
-					   	</div>
-				    </form>
+			<sec:authorize access="isAuthenticated()">
+					<li><a href="<c:url value="/logout" />"><spring:message code="header.logout" text="Cerrar Sesión"/></a></li>
 				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-				    <a class="btn " href="<c:url value="/logout" />">Logout</a>
+				<sec:authorize access="isAnonymous()">
+					<li><a href="<c:url value='/login.html' />"><spring:message code="header.login" text="Iniciar Sesión"/></a></li>
 				</sec:authorize>
 			</li>
 			</ul>
@@ -61,12 +47,5 @@
 	   
  	</div>
 </nav>
-<div class="container">
-	<c:if test="${not empty mensaje}">
-		<div class="${mensaje.type.styles}">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-			<strong>${mensaje.msg}</strong>
-		</div>
-	</c:if>
-</div>
+
 </header>
