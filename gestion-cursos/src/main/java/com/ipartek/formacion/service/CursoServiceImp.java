@@ -28,13 +28,20 @@ public class CursoServiceImp implements CursoService {
 
 	@Override
 	public List<Curso> getAll() {
-		LOGGER.info("stoy service de list all cursos");
+		LOGGER.info("stoy service de list 10 cursos");
 		
 		List<Curso> cursos = cursoDao.getAll();
 		LOGGER.info("numero de cursos:" + cursos);
 		return cursos;
 	}
-
+	@Override
+	public List<Curso> getTodos() {
+		LOGGER.info("stoy service de list all cursos");
+		
+		List<Curso> cursos = cursoDao.getTodos();
+		LOGGER.info("numero de cursos:" + cursos);
+		return cursos;
+	}
 	@Transactional
 	@Override
 	public Curso update(Curso curso) {

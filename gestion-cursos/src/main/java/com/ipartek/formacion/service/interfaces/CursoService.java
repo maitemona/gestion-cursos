@@ -16,5 +16,6 @@ public interface CursoService {
 	public  void delete(long id);
 
 	public List<Curso> getAllbyNombre(String nombre);
+	public List<Curso> getTodos();
 
 }

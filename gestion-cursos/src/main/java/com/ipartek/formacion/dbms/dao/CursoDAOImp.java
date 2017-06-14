@@ -93,6 +93,22 @@ public class CursoDAOImp  implements CursoDAO{
 
 		return cursos;
 	}
+	@Override
+	public List<Curso> getTodos() {
+		//LOGGER.info("getAll() dddddd");
+		final String SQL = "CALL cursoget();";
+		List<Curso> cursos = null;
+		try {
+			cursos = jdbctemplate.query(SQL, new CursoMapper());
+			LOGGER.info(String.valueOf(cursos.size()));
+		} catch (EmptyResultDataAccessException e) {
+			cursos = null;
+			LOGGER.info("sin datos:" + e.getMessage() + " " + SQL);
+		}
+
+		return cursos;
+	}
+
 
 	@Override
 	public Curso update(Curso curso) {

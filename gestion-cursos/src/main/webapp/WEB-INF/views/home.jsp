@@ -13,17 +13,58 @@
 <jsp:include page="includes/header.jsp" />
 
 <main>
+
 	<section>
 		<h2>Gestión Cursos</h2>
 	<nav>
-		
-			<li>
-				<a href="<c:url value='/cursos'/>">
-				  Pulse para Ver listado de  Cursos
-				</a>
-			</li>	
+		<li>
+			<a href="<c:url value='/cursos'/>">
+			  Pulse para Editar listado de  Cursos
+			</a>
+		</li>	
 		</ul>
 	</nav>
+		<section >
+		<h2>Buscar curso por nombre</h2>
+	
+		 <form name="myForm" action="#" onsubmit="buscar();" >
+			 <input type="text" name="buscar" id="buscar">
+			  <input type="button" value="BUSCAR" id="boton">
+		</form> 
+		<div id="ocultar">	
+	  	</div>		
+	</section>
+	<section class="row">
+		<header class="col-xs-12"><h2>Listado de los 10 últimos cursos</h2></header>
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-5">Nombre</div>
+				<div class="col-xs-2">Codigo</div>
+				<div class="col-xs-3"></div>
+			</div>
+			<c:choose>
+				<c:when test="${not empty listadoCursos}">
+					<c:forEach var="curso" items="${listadoCursos}">
+						<div class="row">
+							<div class="col-xs-5">
+								${curso.nombre}</a>
+							</div>
+							<div class="col-xs-2">
+								${curso.codigo}
+				            </div>
+							
+				          		
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="row">
+						<p class="col-xs-12">No existen resultados</p>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</section>
 </main>
 
 <%@include file="includes/footer.html" %>

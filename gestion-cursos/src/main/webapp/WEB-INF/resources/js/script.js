@@ -7,10 +7,10 @@ jQuery( document ).ready(function( $ ) {
 		//$("#email").empty();
 		//$("#nombre").empty();
 		$('#ocultar').show();
-		alert($("#buscar").val());
+	//	alert($("#buscar").val());
 		var str = $("#buscar").val();
 		var res = str.toUpperCase();
-		alert(res);
+	//	alert(res);
 		//console.log($('#buscar').val());
 		url='http://localhost:8080/gestioncursos/api/cursos/'+res;
 		alert(url);
@@ -22,7 +22,7 @@ jQuery( document ).ready(function( $ ) {
 					  txt ="<table data-table='cursos' id='tablaCursos' class='rwd-table'><thead><tr>"
 		                    +"<th>Nombre</th>"
 		                    +"<th>Codigo</th>"
-		                    +"<th></th></tr></thead><tbody>";
+		                    +"<th>Acciones</th></tr></thead><tbody>";
 				 // $.each(data,function(i){
 					  //alert(data.length);
 			      //  var txtnombre = "<p>"+data[i].nombre+"</p>";
@@ -46,6 +46,7 @@ jQuery( document ).ready(function( $ ) {
 
 				 error: function (parsedjson, textStatus, errorThrown) {
 					  console.log("parsedJson: " + JSON.stringify(parsedjson));
+					  txt ="No hay conexion a BBDD";
 				  }
 		 });
 		 
@@ -54,24 +55,10 @@ jQuery( document ).ready(function( $ ) {
 	 function parseCurso (curso){
 		    let nombre = curso.nombre;
 		    let codigo = curso.codigo;
-		    let id= curso.codigo;
-		   /*let apellidos = alumno.apellidos;
-		    let email = alumno.email;
-		    let dni = alumno.dni;*/
-		  /*let htmlEdit ="<button>Editar</button>";*/
-		    let htmlEdit='<div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
-		    htmlEdit+='Acciones';
-		    htmlEdit+='<span class="caret"></span></button>';
-		    htmlEdit+='<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">' ;
-		    htmlEdit+= ' <li><a href="/cursos/editCurso/"'+id+'>Editar</a></li>' ;
-		    htmlEdit+= ' <li><a href="#">Borrar</a></li>'  ;
+		    let id= curso.id;
+		  
 
-		  /*  htmlEdit+='<li role="separator" class="divider"></li>';
-		    htmlEdit+= '<li><a href="#">Separated link</a></li>';*/
-		    htmlEdit+='</ul></div>';
-		  /*  let htmlDelete ="<button>Borrar</button>";*/
-
-		    let texto = "<tr><td><input type='checkbox' value='" + codigo + "'></td><td>"+nombre+"</td><td>"+htmlEdit+"</td></tr>";
+		    let texto = "<tr><td>"+nombre+"</td><td>"+codigo+"</td></tr>";
 
 		    return texto;
 

@@ -62,7 +62,7 @@ public class CursoController {
 	public ModelAndView getAll() {
 		 //LOGGER.info("stoy controller de list all cursos");
 		 mav = new ModelAndView("/cursos/cursos");
-		List<Curso> cursos = cS.getAll();
+		List<Curso> cursos = cS.getTodos();
 		 LOGGER.info("tamaño:" + cursos.size());
 		 mav.addObject("listadoCursos", cursos);
 		return mav;
