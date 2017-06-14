@@ -38,8 +38,8 @@ public class CursoRestController implements Serializable{
 	}
 
 	
-	/*
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+	
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Curso> getById(@PathVariable("id") int id) {
 		Curso curso = cS.getById(id);
 		ResponseEntity<Curso> response = null;
@@ -52,7 +52,7 @@ public class CursoRestController implements Serializable{
 
 		return response;
 	}
-	*/
+	
 	
 	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Curso>> getAll() {

@@ -8,9 +8,12 @@ jQuery( document ).ready(function( $ ) {
 		//$("#nombre").empty();
 		$('#ocultar').show();
 		alert($("#buscar").val());
-		//alert("HOLA");
+		var str = $("#buscar").val();
+		var res = str.toUpperCase();
+		alert(res);
 		//console.log($('#buscar').val());
-		url='http://localhost:8080/gestioncursos/api/cursos/'+$("#buscar").val();
+		url='http://localhost:8080/gestioncursos/api/cursos/'+res;
+		alert(url);
 		 $.ajax({
 			  url : url,
 			  dataType : "json",
@@ -51,15 +54,16 @@ jQuery( document ).ready(function( $ ) {
 	 function parseCurso (curso){
 		    let nombre = curso.nombre;
 		    let codigo = curso.codigo;
-		   /* let apellidos = alumno.apellidos;
+		    let id= curso.codigo;
+		   /*let apellidos = alumno.apellidos;
 		    let email = alumno.email;
 		    let dni = alumno.dni;*/
-		  /*  let htmlEdit ="<button>Editar</button>";*/
+		  /*let htmlEdit ="<button>Editar</button>";*/
 		    let htmlEdit='<div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">';
 		    htmlEdit+='Acciones';
 		    htmlEdit+='<span class="caret"></span></button>';
 		    htmlEdit+='<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">' ;
-		    htmlEdit+= ' <li><a href="#">Editar</a></li>' ;
+		    htmlEdit+= ' <li><a href="/cursos/editCurso/"'+id+'>Editar</a></li>' ;
 		    htmlEdit+= ' <li><a href="#">Borrar</a></li>'  ;
 
 		  /*  htmlEdit+='<li role="separator" class="divider"></li>';
@@ -70,10 +74,6 @@ jQuery( document ).ready(function( $ ) {
 		    let texto = "<tr><td><input type='checkbox' value='" + codigo + "'></td><td>"+nombre+"</td><td>"+htmlEdit+"</td></tr>";
 
 		    return texto;
-
-
-
-
 
 
 		}
