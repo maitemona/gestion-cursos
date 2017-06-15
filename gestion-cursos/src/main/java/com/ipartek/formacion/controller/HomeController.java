@@ -51,64 +51,42 @@ public class HomeController {
 		 mav.addObject("listadoCursos", cursos);
 		return mav;
 	}
-	/*@RequestMapping(method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		LOGGER.info("Welcome home! The client locale is {}.", locale);
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+	@RequestMapping(value="login.html")
+	public String loginPage() {
+		return "login";
+	}
 
-		String formattedDate = dateFormat.format(date);
+	@RequestMapping(value="/Access_Denied")
+	public String accesoDenegado(ModelMap model) {
+		model.addAttribute("model", getPrincipal());
+		return "login";
+	}
 
-		model.addAttribute("serverTime", formattedDate);
+	private Object getPrincipal() {
+		String username = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		return "home";
-	}*/
-	//que nos preocese el login.html y el access-deneger
-			@RequestMapping(value="login")
-			public String loginPage(Locale locale, Model model){
-				LOGGER.info("ESTOY EN Login");
-			
-				return "login";
-			}
-		/*
-			@RequestMapping(method = RequestMethod.GET, value = "/login.html")
-			public String accessLogin() {
-				
-				logger.info("ESTOY accessLogin()");
-				return "redirect:/login";
-			}*/
-			//estamos con trabajando con clases especificas de segurity
-		@RequestMapping(value="/Access_Denied")
-			public String accessoDenegado(ModelMap model){
-				//necesito el mapa para mostrar el mensaje de error en la pagina de login,
-				//vamos a crear un metodo getPrincipal, para validar desde xml
-				model.addAttribute("model", getPrincipal());
-				return "login";
-			}
-			private String getPrincipal() {
-				String username= null;
-				//lista de usuarios del contexto
-				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-				if(principal instanceof UserDetails)
-				{
-					username =((UserDetails) principal).getUsername();
-				}
-				else{
-					username = principal.toString();
-					
-				}
-				return username;
-			}
-			
-			@RequestMapping(value="logout")
-			public String logout(HttpServletRequest request,HttpServletResponse response){
-				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-				if(auth != null){
-					new SecurityContextLogoutHandler().logout(request, response, auth);
-				}
-				return "redirect:/login?logout";//se recomienda asi la pagina d elogout sea la de login
-				
-			}
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		return username;
+	}
+
+	@RequestMapping(value="logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+
+		return "redirect:/login.html?logout";// se recomienda que la web logout
+												// sea la de login
+
+	}
 	
 
 }

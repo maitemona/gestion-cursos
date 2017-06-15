@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2017 a las 21:03:43
--- Versión del servidor: 5.6.26
--- Versión de PHP: 5.6.12
+-- Tiempo de generación: 15-06-2017 a las 14:52:30
+-- Versión del servidor: 10.1.21-MariaDB
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,8 +24,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cursoCreate`(IN `pnombre` VARCHAR(50), IN `pcodigo` VARCHAR(50), OUT `pid` INT)
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cursoCreate` (IN `pnombre` VARCHAR(50), IN `pcodigo` VARCHAR(50), OUT `pid` INT)  NO SQL
 BEGIN
 
 INSERT	INTO curso(nombre,codigo)
@@ -38,18 +37,34 @@ SET pid = LAST_INSERT_ID();
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cursogetAll`()
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cursoDelete` (IN `pcodigo` INT)  NO SQL
+BEGIN
+
+
+DELETE FROM curso WHERE id = pcodigo;
+
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cursoget` ()  NO SQL
 BEGIN
 
 	SELECT id ,`codigo`, `nombre`
 
-	FROM `curso`;
+	FROM `curso`order by id DESC limit 10;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cursogetbyID`(IN `pcodigo` VARCHAR(50))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cursogetAll` ()  NO SQL
+BEGIN
+
+	SELECT id ,`codigo`, `nombre`
+
+	FROM `curso`order by id DESC limit 10;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cursogetbyID` (IN `pid` INT)  NO SQL
 BEGIN
 
 
@@ -58,22 +73,22 @@ BEGIN
 
     FROM `curso`
 
-	WHERE codigo = pcodigo;
+	WHERE id = pid;
 
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cursogetbyNombre`(IN `pnombre` VARCHAR(50))
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cursogetbyNombre` (IN `pnombre` VARCHAR(50))  NO SQL
 BEGIN
 
-select nombre,codigo from curso where nombre like concat('%',pnombre,'%');
+select id, nombre,codigo 
+from curso where nombre 
+like CONCAT('%',pnombre,'%');
 
 end$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `cursoUpdate`(IN `pnombre` VARCHAR(50), IN `pcodigo` VARCHAR(50), IN `pid` INT)
-    NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cursoUpdate` (IN `pnombre` VARCHAR(50), IN `pcodigo` VARCHAR(50), IN `pid` INT)  NO SQL
 BEGIN
 
 UPDATE curso 
@@ -94,29 +109,23 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `curso`
 --
 
-CREATE TABLE IF NOT EXISTS `curso` (
+CREATE TABLE `curso` (
   `id` int(2) NOT NULL COMMENT 'el campo clave de la tabla. Es auto generado.',
   `nombre` varchar(50) COLLATE utf8_bin NOT NULL,
   `codigo` varchar(50) COLLATE utf8_bin NOT NULL DEFAULT 'NOTIENE'
-) ENGINE=InnoDB AUTO_INCREMENT=2029 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Volcado de datos para la tabla `curso`
 --
 
 INSERT INTO `curso` (`id`, `nombre`, `codigo`) VALUES
-(1, 'PROGRAMACIÓN PARA PDAs', 'EMIN3004'),
-(2, 'SEGURIDAD DE LA INFORMACIÓN', 'ER523'),
-(3, 'GESTIÓN Y DESARROLLO DE APLICACIONES WIRELESS', 'CI03'),
-(4, 'SMS 2003', 'CI04'),
 (5, 'INTRODUCCIÓN A VISUAL BASIC .NET', 'CI05'),
 (6, 'GESTIÓN DE SISTEMAS CON PATROL', 'CI06'),
 (7, 'TÉCNICAS DE DESARROLLO ESTRUCTURADO', 'CI07'),
-(8, 'UML – TÉCNICAS DE DESARROLLO ORIENTADAS A OBJETOS', 'CI08'),
 (9, 'GESTIÓN DE PROYECTOS. ESTIMACIÓN MEDIANTE PUNTOS D', 'CI09'),
 (10, 'MICROSOFT WINDOWS MILLENIUM', 'IU105'),
 (11, 'WINDOWS NT 4.0: WORKSTATION: USUARIO', 'IU106'),
-(12, 'WINDOWS 2000 PROFESSIONAL: USUARIO', 'IU107'),
 (13, 'MICROSOFT WORD 97: INICIACIÓN', 'IU200'),
 (14, 'MICROSOFT WORD 97: AVANZADO', 'IU201'),
 (15, 'MICROSOFT WORD 2000: INICIACIÓN', 'IU202'),
@@ -1164,15 +1173,15 @@ INSERT INTO `curso` (`id`, `nombre`, `codigo`) VALUES
 (1238, 'OPEN OFFICE CALC Online (Euskera)', 'av002'),
 (1239, 'OPEN OFFICE IMPRESS Online (Euskera)', 'av003'),
 (1240, 'UF0328 Organ y Opera con Hojas de Cálc y Téc Graf', 'UF0328'),
-(1241, 'Microsoft Excel 2010 Avanzado Gr.4', 'IU312');
-INSERT INTO `curso` (`id`, `nombre`, `codigo`) VALUES
+(1241, 'Microsoft Excel 2010 Avanzado Gr.4', 'IU312'),
 (1242, 'Excel 2010 Experto (Online)', ''),
 (1243, 'POWER CENTER', 'CI64'),
 (1244, 'Desarrollo de Aplic Con Android', ''),
 (1245, 'Desarrollo JAVA EE', ''),
 (1246, 'SCRUM', ''),
 (1247, 'POWERCENTER & TERADATA', 'CI61'),
-(1248, 'UF0328 Organ y Opera con Hojas de Cálc y Téc Graf', 'UF0328'),
+(1248, 'UF0328 Organ y Opera con Hojas de Cálc y Téc Graf', 'UF0328');
+INSERT INTO `curso` (`id`, `nombre`, `codigo`) VALUES
 (1249, 'Programacion con Android', ''),
 (1250, 'Programacion con Android Gr.1', ''),
 (1251, 'Programacion con Android Gr.2', ''),
@@ -1570,7 +1579,7 @@ INSERT INTO `curso` (`id`, `nombre`, `codigo`) VALUES
 (1650, 'Seguridad de la información - Online', 'ERK102'),
 (1651, 'Firma y facturación electrónica - Online', 'ERIU715'),
 (1652, 'Symfony', ''),
-(1653, 'Uso de aplicaciones Google: Doc''s, Calc, Forms, Dr', 'CI161'),
+(1653, 'Uso de aplicaciones Google: Doc\'s, Calc, Forms, Dr', 'CI161'),
 (1654, 'InkScape - Tratamiento de Gráficos Vectoriales', 'CI162'),
 (1655, 'IFCD0210 DESARROLLO DE APLIC CON TECN WEB', 'IFCD0210_FIC'),
 (1656, 'Programación con JAVA/JEE - Gr5', 'CI94'),
@@ -1603,7 +1612,9 @@ INSERT INTO `curso` (`id`, `nombre`, `codigo`) VALUES
 (1683, 'Android, desarrollo de aplicaciones para dispositi', 'CI168'),
 (1684, 'Android, desarrollo de aplicaciones para dispositi', 'CI169'),
 (1685, 'Desarrollo Apps Iphone (los Xwiht)', 'CI163'),
-(2028, 'nuevoupdate', 'coo');
+(2028, 'nuevoupdate', 'coo'),
+(2029, 'pruebamodificada', 'pruebamodificada'),
+(2031, 'pruebaedita', 'pruebaedita');
 
 --
 -- Índices para tablas volcadas
@@ -1623,7 +1634,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT COMMENT 'el campo clave de la tabla. Es auto generado.',AUTO_INCREMENT=2029;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT COMMENT 'el campo clave de la tabla. Es auto generado.', AUTO_INCREMENT=2032;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
